@@ -32,19 +32,19 @@ const createModal = (data) => {
 	modalContent.innerHTML = `
 		<img src="${data.image_url}">
 		<h2>${data.title}</h2>
-		<p>Synopsis: ${data.long_description}</p>
-		<p>Date de sortie: ${data.date_published}</p>
 		<p>Genre: ${data.genres}</p>
-		<p>Durée: ${data.duration} minutes</p>
+		<p>Date de sortie: ${data.year}</p>
+		<p>Référencement: ${data.rating}</p>
+		<p>Score imdb: ${data.imdb_score}</p>
 		<p>Réalisateur(s): ${data.directors}</p>
 		<p>Acteurs: ${data.actors}</p>
+		<p>Durée: ${data.duration}</p>
 		<p>Pays: ${data.countries}</p>
-		<p>Score: ${data.avg_vote}</p>
-		<p>Score IMDb: ${data.imdb_score}</p>
-		<p>Box office: ${data.worldwide_gross_income}</p>
+		<p>Box office: ${data.votes}</p>
+		<p>Synopsis: ${data.synopsis}</p>
 	`
 	let btn = document.getElementById("cross")
-	btn.onClick = () => modal.style.display = "none"
+	btn.addEventListener("click", () => modal.style.display = "none")
 }
 	
 /******************BEST MOVIE*****************/
@@ -82,7 +82,7 @@ const createHTMLCarousel = (title) => {
 			<div class="carousel-wrap-all">
 				<span><img class="arrow" src="img/arrow-left.svg" alt="flèche gauche"></span>
 				<div class="carousel-wrapper">
-					<div id="${title}" class="carousel-content" data-pos="0"></div>
+					<div id="${title}" class="carousel-content" data-position="0"></div>
 				</div>
 				<span><img class="arrow" src="img/arrow-right.svg" alt="flèche droite"></span>
 			</div> 
@@ -112,16 +112,17 @@ const showCarousel = (carousel) => {
 	let content = carousel.querySelector('.carousel-content');
 	let values = [[0,-75,25],[-75,0,-25]];
 	let buttonArrow = carousel.querySelectorAll(".arrow");
+
 	for (let i = 0; i <=1; i++) {
 		buttonArrow[i].onclick = () => {
 			let newPosition;
-			let currentPosition = parseInt(content.getAttribute('data-pos'))
+			let currentPosition = parseInt(content.getAttribute('data-position'))
 			if (currentPosition == values[i][0]) {
 				newPosition = values[i][1]
 			} else {
 				newPosition = currentPosition + values[i][2]
 			}
-			content.setAttribute('data-pos', newPosition);
+			content.setAttribute('data-position', newPosition);
 			content.style.left = `${newPosition}%`;
 		}
 	}

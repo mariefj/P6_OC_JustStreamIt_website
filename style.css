@@ -249,8 +249,8 @@ nav li a {
 	float: right;
 }
 
-#modal span img[alt="croix"] {
-	width: 32px;
+#modal span #cross {
+	width: 30px;
 }
 
 .modal-content {
