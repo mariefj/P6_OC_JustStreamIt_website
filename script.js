@@ -108,24 +108,28 @@ const createItemCarousel = (data, title) => {
 	carousel.appendChild(item)
 }
 
-const showCarousel = (carousel) => {
-	let content = carousel.querySelector('.carousel-content');
-	let values = [[0,-75,25],[-75,0,-25]];
-	let buttonArrow = carousel.querySelectorAll(".arrow");
-
-	for (let i = 0; i <=1; i++) {
-		buttonArrow[i].onclick = () => {
-			let newPosition;
-			let currentPosition = parseInt(content.getAttribute('data-position'))
-			if (currentPosition == values[i][0]) {
-				newPosition = values[i][1]
-			} else {
-				newPosition = currentPosition + values[i][2]
-			}
-			content.setAttribute('data-position', newPosition);
-			content.style.left = `${newPosition}%`;
+const arrowClick = (btn, values, content) =>
+	btn.onclick = () => {
+		let newPosition
+		let currentPosition = parseInt(content.getAttribute('data-position'))
+		if (currentPosition == values[0]) {
+			newPosition = values[0] === 0 ? currentPosition : values[1]
+		} else {
+			newPosition = currentPosition + values[2]
 		}
+		content.setAttribute('data-position', newPosition);
+		content.style.left = `${newPosition}%`;
 	}
+
+const showCarousel = (carousel) => {
+	const content = carousel.querySelector('.carousel-content');
+	const btnArrow = carousel.querySelectorAll(".arrow");
+
+	const btnArrowLeft = btnArrow[0]
+	const btnArrowRight = btnArrow[1]
+
+	arrowClick(btnArrowLeft, [0, -75, 25], content)
+	arrowClick(btnArrowRight, [-75, 0, -25], content)
 }
 
 /***********************MAIN*******************/
