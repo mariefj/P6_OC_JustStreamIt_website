@@ -88,7 +88,7 @@ nav li a {
 
 /* DROPDOWN MENU */
 
-.dropdown-btn {
+#dropdown-btn {
 	color: var(--light);
 	background-color: var(--bg-dark);
 	padding: 10px 16px;

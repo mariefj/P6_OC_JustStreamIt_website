@@ -56,23 +56,23 @@ const fillHeader = async () => get(BEST)
 const createBestMovie = (data) => {
 	let section = document.getElementById("best-movie")
 	section.innerHTML = `
-	<div>
-	<div>
-	<h1>${data.title}</h1>
-	<button id="more">En savoir plus</button>
+		<div>
+		<div>
+		<h1>${data.title}</h1>
+		<button id="more">En savoir plus</button>
+			</div>
+			<img src="${data.image_url}" alt="${data.title}"
 		</div>
-		<img src="${data.image_url}" alt="${data.title}"
-	</div>
 	`
 	document.getElementById("more").onclick = () => createModal(data)
 }
 	
 /******************CAROUSELS*****************/
 
-const createCarousels = async (carousels, titles) =>
-	carousels.map((k, i) => get(k)
-	.then(res => createCarousel(res, titles[i]))
-	.catch(e => console.log(e)))
+const getDataAndCreateCarousel = async (url, title) =>
+	get(url)
+	.then(res => createCarousel(res, title))
+	.catch(e => console.log(e))
 	
 const createHTMLCarousel = (title) => {
 	let carousel = document.createElement("div")
@@ -135,7 +135,7 @@ const showCarousel = (carousel) => {
 /***********************MAIN*******************/
 
 const main = async () => {
-	const titlesData = [BEST_ALL_CATEGORIES, BEST_2000, BEST_HORROR, BEST_COMEDY]
+	const urls = [BEST_ALL_CATEGORIES, BEST_2000, BEST_HORROR, BEST_COMEDY]
 	const titles = [
 		"Films les mieux notés",
 		"Meilleurs films des années 2000",
@@ -145,7 +145,12 @@ const main = async () => {
 
 	createMenuNav(titles)
 	await fillHeader()
-	await createCarousels(titlesData,titles)
+	// await createCarousels(urls,titles)
+
+	await getDataAndCreateCarousel(urls[0],titles[0])
+	await getDataAndCreateCarousel(urls[1],titles[1])
+	await getDataAndCreateCarousel(urls[2],titles[2])
+	await getDataAndCreateCarousel(urls[3],titles[3])
 }
 
 main()
